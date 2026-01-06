@@ -1,0 +1,44 @@
+2026-01-06 19:48:26,248 - INFO - Dataset loaded successfully. Shape: (7043, 21)
+2026-01-06 19:48:26,251 - INFO - Columns dropped: ['customerID']
+2026-01-06 19:48:26,253 - INFO - Target variable 'Churn' encoded
+2026-01-06 19:48:26,286 - INFO - 
+Encoded dataset preview:
+2026-01-06 19:48:26,286 - INFO -    gender  SeniorCitizen  Partner  ...  PaymentMethod_Credit card (automatic)  PaymentMethod_Electronic check  PaymentMethod_Mailed check
+0       0              0        1  ...                                  False                            True                       False
+1       1              0        0  ...                                  False                           False                        True
+2       1              0        0  ...                                  False                           False                        True
+3       1              0        0  ...                                  False                           False                       False
+4       0              0        0  ...                                  False                            True                       False
+
+[5 rows x 24 columns]
+2026-01-06 19:48:26,322 - INFO - 
+Dataset info:
+2026-01-06 19:48:26,334 - INFO - None
+2026-01-06 19:48:26,334 - INFO - 
+Missing values per column:
+2026-01-06 19:48:26,338 - INFO - gender                                   0
+SeniorCitizen                            0
+Partner                                  0
+Dependents                               0
+tenure                                   0
+PhoneService                             0
+MultipleLines                            0
+OnlineSecurity                           0
+OnlineBackup                             0
+DeviceProtection                         0
+TechSupport                              0
+StreamingTV                              0
+StreamingMovies                          0
+PaperlessBilling                         0
+MonthlyCharges                           0
+TotalCharges                             0
+Churn                                    0
+InternetService_Fiber optic              0
+InternetService_No                       0
+Contract_One year                        0
+Contract_Two year                        0
+PaymentMethod_Credit card (automatic)    0
+PaymentMethod_Electronic check           0
+PaymentMethod_Mailed check               0
+dtype: int64
+2026-01-06 19:48:26,418 - INFO - Encoded dataset saved successfully as 'encoded_telco_churn.csv'
