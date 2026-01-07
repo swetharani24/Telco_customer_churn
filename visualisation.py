@@ -1,18 +1,51 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
+from log_file import setup_logging
+
+logger = setup_logging("visualisation")
+
 
 # =========================
 # Load Dataset
 # =========================
 def load_data(path):
     df = pd.read_csv(path)
-    print(df.head())
+    logger.info(df.head())
     df.info()
     return df
 
+import pandas as pd
+import numpy as np
 
 # =========================
+# Load Data
+# =========================
+def load_data(path):
+    return pd.read_csv(path)
+
+# =========================
+# Add SIM Operator Column
+# =========================
+def add_sim_operator_column(df, seed=42):
+    np.random.seed(seed)
+
+    operators = ['Airtel', 'BSNL', 'Vodafone', 'Jio']
+    probabilities = [0.30, 0.10, 0.20, 0.40]
+
+    df['SIM_Operator'] = np.random.choice(
+        operators,
+        size=len(df),
+        p=probabilities
+    )
+    return df
+def save_dataset(df, output_path):
+    df.to_csv(output_path, index=False)
+    logger.info(f"Dataset saved successfully at {output_path}")
+
+
+
+
 # Bar Plot with Count Labels
 # =========================
 def bar_plot(x, y, xlabel, ylabel, title, figsize=(5,4)):
@@ -164,9 +197,40 @@ def plot_gender_vs_internet(df):
     plt.tight_layout()
     plt.show()
 
+def plot_churn_vs_sim_operator(df):
+    churn_sim = pd.crosstab(df['SIM_Operator'], df['Churn'])
+
+    churn_sim.plot(kind='bar', figsize=(7, 5))
+
+    plt.xlabel("SIM Operator")
+    plt.ylabel("Number of Customers")
+    plt.title("Churn Distribution by SIM Operator")
+    plt.xticks(rotation=0)
+
+    # Add value labels
+    for container in plt.gca().containers:
+        plt.bar_label(container)
+
+    plt.tight_layout()
+    plt.show()
+
+
 
 def main():
     df = load_data("WA_Fn-UseC_-Telco-Customer-Churn.csv")
+    df = add_sim_operator_column(df)
+
+    # ✅ FINAL CHECK (THIS WILL WORK)
+    logger.info(df.columns)
+    logger.info(df[['SIM_Operator']].head())
+    logger.info(df['SIM_Operator'].value_counts())
+
+    # =========================
+
+    # Debug check (must work)
+    logger.info(df[['SIM_Operator']].head())
+    logger.info(df['SIM_Operator'].value_counts())
+    save_dataset(df, "Telco_Customer_Churn_with_SIM.csv")
 
     plot_churn_distribution(df)
     plot_gender_distribution(df)
@@ -177,6 +241,7 @@ def main():
     plot_tenure_distribution(df)
     plot_tenure_vs_churn(df)
     plot_gender_vs_internet(df)
+    plot_churn_vs_sim_operator(df)
 
 
 if __name__ == "__main__":
